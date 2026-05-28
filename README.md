@@ -42,10 +42,10 @@ A continuación se detallan los bloques temáticos que se desarrollan y resuelve
 
 | Datos del Alumno | Detalle |
 | :--- | :--- |
-| **Nombre:** | [Gerardo Imanol Rodríguez Gómez] |
-| **Carrera:** | [Ingeniería en Sistemas Computacionales] |
-| **Semestre/Grupo:** | [4F32] |
-| **Contacto:** | [24030306@itesa.edu.mx] |
+| **Nombre:** | Gerardo Imanol Rodríguez Gómez |
+| **Carrera:** | Ingeniería en Sistemas Computacionale |
+| **Semestre/Grupo:** | 4F32 |
+| **Contacto:** | 24030306@itesa.edu.mx |
 
 ---
 
