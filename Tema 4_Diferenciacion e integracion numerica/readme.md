@@ -1,4 +1,4 @@
-# Tema 4: Diferenciación e Integración Numérica 📈 📐
+# Tema 4: Diferenciación e Integración Numérica 📈
 
 Este directorio contiene el desarrollo de algoritmos y códigos de simulación enfocados en aproximar las dos operaciones fundamentales del cálculo: la derivada y la integral definida. Estos métodos son esenciales cuando se trabaja con funciones complejas conocidas solo a través de un conjunto de datos discretos o cuyas antiderivadas analíticas no se pueden calcular.
 
