@@ -23,7 +23,7 @@ El contenido está organizado en seis temas conceptuales esenciales, incluyendo 
 
 ---
 
-## 📅 Temario y Contenido del Repositorio
+## Temario y Contenido del Repositorio
 
 A continuación se detallan los bloques temáticos que se desarrollan y resuelven dentro de este repositorio:
 
@@ -38,18 +38,18 @@ A continuación se detallan los bloques temáticos que se desarrollan y resuelve
 
 ---
 
-## 🧑‍💻 Sobre el Autor
+## Sobre el Autor
 
 | Datos del Alumno | Detalle |
 | :--- | :--- |
 | **Nombre:** | [Gerardo Imanol Rodríguez Gómez] |
 | **Carrera:** | [Ingeniería en Sistemas Computacionales] |
-| **Semestre/Grupo:** | [4f32] |
+| **Semestre/Grupo:** | [4F32] |
 | **Contacto:** | [24030306@itesa.edu.mx] |
 
 ---
 
-## 🛠️ Tecnologías Utilizadas
+## Tecnologías Utilizadas
 
 Para el desarrollo de las soluciones numéricas, algoritmos y gráficas del problemario se emplearon las siguientes tecnologías:
 
