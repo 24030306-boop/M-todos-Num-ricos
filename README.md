@@ -38,7 +38,7 @@ A continuación se detallan los bloques temáticos que se desarrollan y resuelve
 
 ---
 
-## Sobre el Autor
+## Sobre el Autor de este Git
 
 | Datos del Alumno | Detalle |
 | :--- | :--- |
