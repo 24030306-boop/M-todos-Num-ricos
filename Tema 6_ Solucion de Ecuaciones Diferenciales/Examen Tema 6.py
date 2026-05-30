@@ -1,5 +1,4 @@
 # Metodo de Euler 
-
 def f(T):
     return -0.1 * (T - 20)
 t = 0
@@ -8,7 +7,6 @@ h = 0.5
 tf = 1.5
 
 print("Iteracion\t t\t T\t\t f(T)")
-
 i = 0
 
 while t < tf:
