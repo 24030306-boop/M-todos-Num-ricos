@@ -1,160 +1,82 @@
-# 📘 Tema 4: Diferenciación e Integración Numérica
+# 📘 Tema 3: Metodos de Solucion de Sistemas de Ecuaciones Lineales
 
-Este directorio contiene el desarrollo de algoritmos y simulaciones enfocados en aproximar derivadas e integrales definidas mediante métodos numéricos. Estas técnicas son fundamentales cuando una función no puede resolverse analíticamente o únicamente se dispone de datos discretos.
+Este directorio contiene la implementación de algoritmos numéricos utilizados para resolver sistemas de ecuaciones lineales de la forma:
 
-La diferenciación e integración numérica son ampliamente utilizadas en ingeniería, física, simulaciones computacionales y análisis científico.
+```txt
+Ax = B
+```
+
+donde:
+
+* **A** es la matriz de coeficientes.
+* **x** es el vector de incógnitas.
+* **B** es el vector de términos independientes.
+
+Los métodos desarrollados permiten obtener soluciones exactas o aproximadas dependiendo de las características del sistema y son ampliamente utilizados en ingeniería, simulación, modelado matemático y ciencias computacionales.
 
 ---
 
 # 🛠️ Catálogo de Métodos Desarrollados
 
-| Método                  | Descripción                                                   |
-| :---------------------- | :------------------------------------------------------------ |
-| Diferenciación Numérica | Aproximación de derivadas mediante diferencias finitas.       |
-| Método del Trapecio     | Aproximación de integrales usando trapecios.                  |
-| Método de Simpson 1/3   | Integración usando aproximaciones parabólicas.                |
-| Cuadratura Gaussiana    | Integración de alta precisión mediante pesos y nodos óptimos. |
+| Método                | Tipo      | Descripción                                    |
+| :-------------------- | :-------- | :--------------------------------------------- |
+| Eliminación Gaussiana | Directo   | Convierte la matriz en triangular superior.    |
+| Gauss-Jordan          | Directo   | Reduce la matriz a la identidad.               |
+| Jacobi                | Iterativo | Actualiza todas las variables simultáneamente. |
+| Gauss-Seidel          | Iterativo | Utiliza inmediatamente los valores calculados. |
 
 ---
 
-# 1. 🔹 Diferenciación Numérica (3 y 5 Puntos)
+# 1. 🔹 Eliminación Gaussiana
 
 ## 🎯 Objetivo
 
-Aproximar la derivada de una función utilizando valores discretos cercanos al punto de interés.
+Resolver sistemas de ecuaciones transformando la matriz de coeficientes en una matriz triangular superior.
 
 ---
 
 ## 📝 Descripción del Método
 
-La diferenciación numérica utiliza diferencias finitas para aproximar derivadas cuando no es posible obtenerlas analíticamente. Dependiendo de la cantidad de puntos utilizados, aumenta la precisión de la aproximación.
-
----
-
-## 🔢 Fórmulas Generales
-
-Diferencia hacia adelante:
-
-```txt id="e4d2yw"
-f'(x) ≈ (f(x+h) - f(x)) / h
-```
-
-Diferencia centrada:
-
-```txt id="q0v6kx"
-f'(x) ≈ (f(x+h) - f(x-h)) / (2h)
-```
-
-Fórmula de 5 puntos:
-
-```txt id="w3kl8f"
-f'(x) ≈ [-f(x+2h)+8f(x+h)-8f(x-h)+f(x-2h)] / 12h
-```
-
----
-
-## 👣 Pasos del Algoritmo
-
-1. Definir función.
-2. Seleccionar punto.
-3. Definir espaciamiento (h).
-4. Aplicar fórmula.
-5. Obtener aproximación.
-
----
-
-## 💻 Pseudocódigo
-
-```txt id="rl3r0s"
-INICIO
-
-Leer funcion
-Leer h
-
-Calcular derivada
-
-Mostrar resultado
-
-FIN
-```
-
----
-
-## 🐍 Código en Python
-
-```python id="okq5tx"
-def derivada_centrada(f, x, h):
-
-    return (f(x + h) - f(x - h)) / (2 * h)
-```
-
----
-
-## 📊 Resultado de Ejecución
-
-```txt id="fh5e1v"
-Derivada aproximada:
-2.00001
-```
-
----
-
-## 🏁 Conclusión
-
-Las fórmulas centradas ofrecen mayor precisión que las diferencias simples debido a su menor error de truncamiento.
-
----
-
-# 2. 🔹 Método del Trapecio
-
-## 🎯 Objetivo
-
-Aproximar el valor de una integral definida mediante áreas trapezoidales.
-
----
-
-## 📝 Descripción del Método
-
-La regla del trapecio aproxima el área bajo una curva reemplazando la función original por segmentos rectos.
+La eliminación gaussiana aplica operaciones elementales entre filas para eliminar los coeficientes ubicados debajo de la diagonal principal. Posteriormente se utiliza sustitución hacia atrás para obtener las incógnitas.
 
 ---
 
 ## 🔢 Fórmula General
 
-```txt id="ffu8ww"
-Integral ≈ ((b-a)/2) * [f(a) + f(b)]
+```txt
+[A|B] → [U|Y]
 ```
 
-Trapecio compuesto:
+Donde:
 
-```txt id="q0q2fi"
-Integral ≈ (h/2) * [f(x0)+2Σf(xi)+f(xn)]
+```txt
+U = Matriz triangular superior
 ```
 
 ---
 
 ## 👣 Pasos del Algoritmo
 
-1. Dividir intervalo.
-2. Evaluar función.
-3. Construir trapecios.
-4. Sumar áreas.
-5. Obtener integral.
+1. Construir matriz aumentada.
+2. Aplicar eliminación hacia adelante.
+3. Obtener matriz triangular superior.
+4. Realizar sustitución hacia atrás.
+5. Calcular las incógnitas.
 
 ---
 
 ## 💻 Pseudocódigo
 
-```txt id="t4y9ec"
+```txt
 INICIO
 
-Dividir intervalo
+Aplicar eliminacion hacia adelante
 
-Evaluar puntos
+Generar matriz triangular
 
-Aplicar formula
+Realizar sustitucion hacia atras
 
-Mostrar resultado
+Mostrar solucion
 
 FIN
 ```
@@ -163,181 +85,316 @@ FIN
 
 ## 🐍 Código en Python
 
-```python id="m58xx6"
-def trapecio(f, a, b):
-
-    return ((b - a) / 2) * (f(a) + f(b))
-```
-
----
-
-## 📊 Resultado de Ejecución
-
-```txt id="fw72jq"
-Integral aproximada:
-5.33333
-```
-
----
-
-## 🏁 Conclusión
-
-El método del trapecio es simple y eficiente, aunque puede presentar errores en funciones muy curvas.
-
----
-
-# 3. 🔹 Método de Simpson 1/3
-
-## 🎯 Objetivo
-
-Incrementar la precisión de la integración utilizando parábolas en lugar de líneas rectas.
-
----
-
-## 📝 Descripción del Método
-
-La regla de Simpson aproxima la función mediante polinomios cuadráticos, logrando resultados más precisos que el método del trapecio.
-
----
-
-## 🔢 Fórmula General
-
-```txt id="gw5l7z"
-Integral ≈ (h/3) * [f(x0)+4f(x1)+f(x2)]
-```
-
----
-
-## 👣 Pasos del Algoritmo
-
-1. Dividir intervalo en partes pares.
-2. Evaluar función.
-3. Aplicar pesos.
-4. Sumar resultados.
-5. Obtener integral.
-
----
-
-## 💻 Pseudocódigo
-
-```txt id="g6dxnk"
-INICIO
-
-Dividir intervalo
-
-Aplicar Simpson
-
-Mostrar integral
-
-FIN
-```
-
----
-
-## 🐍 Código en Python
-
-```python id="o4s0zz"
-def simpson(f, a, b):
-
-    h = (b - a) / 2
-
-    return (h / 3) * (f(a) + 4*f(a+h) + f(b))
-```
-
----
-
-## 📊 Resultado de Ejecución
-
-```txt id="m2rwlr"
-Integral aproximada:
-5.33333
-```
-
----
-
-## 🏁 Conclusión
-
-Simpson 1/3 proporciona mayor precisión utilizando aproximaciones parabólicas.
-
----
-
-# 4. 🔹 Cuadratura Gaussiana
-
-## 🎯 Objetivo
-
-Obtener integrales numéricas de alta precisión utilizando puntos óptimos de evaluación.
-
----
-
-## 📝 Descripción del Método
-
-La cuadratura gaussiana utiliza nodos y pesos matemáticos especiales derivados de los polinomios de Legendre para maximizar la precisión con pocas evaluaciones.
-
----
-
-## 🔢 Fórmula General
-
-```txt id="vm4tp8"
-Integral ≈ Σ(w_i * f(x_i))
-```
-
----
-
-## 👣 Pasos del Algoritmo
-
-1. Seleccionar nodos.
-2. Seleccionar pesos.
-3. Evaluar función.
-4. Multiplicar pesos.
-5. Sumar resultados.
-
----
-
-## 💻 Pseudocódigo
-
-```txt id="t8w8sz"
-INICIO
-
-Seleccionar pesos y nodos
-
-Evaluar funcion
-
-Sumar resultados
-
-Mostrar integral
-
-FIN
-```
-
----
-
-## 🐍 Código en Python
-
-```python id="osf8yw"
+```python
 import numpy as np
 
-def cuadratura_gaussiana(f):
+A = np.array([[2,1,-1],
+              [-3,-1,2],
+              [-2,1,2]], dtype=float)
 
-    x = [-0.577, 0.577]
-    w = [1,1]
+B = np.array([8,-11,-3], dtype=float)
 
-    return w[0]*f(x[0]) + w[1]*f(x[1])
+X = np.linalg.solve(A,B)
+
+print(X)
 ```
 
 ---
 
 ## 📊 Resultado de Ejecución
 
-```txt id="c2w1lo"
-Integral aproximada:
-5.33333
+```txt
+X = [2.0, 3.0, -1.0]
 ```
 
 ---
 
 ## 🏁 Conclusión
 
-La cuadratura gaussiana logra resultados extremadamente precisos con pocas evaluaciones de la función.
+La eliminación gaussiana es uno de los métodos directos más utilizados debido a su precisión y facilidad de implementación.
+
+---
+
+# 2. 🔹 Método de Gauss-Jordan
+
+## 🎯 Objetivo
+
+Resolver sistemas de ecuaciones reduciendo completamente la matriz hasta obtener la matriz identidad.
+
+---
+
+## 📝 Descripción del Método
+
+Gauss-Jordan extiende la eliminación gaussiana eliminando tanto los elementos inferiores como superiores de la diagonal principal.
+
+---
+
+## 🔢 Fórmula General
+
+```txt
+[A|B] → [I|X]
+```
+
+Donde:
+
+```txt
+I = Matriz identidad
+```
+
+---
+
+## 👣 Pasos del Algoritmo
+
+1. Construir matriz aumentada.
+2. Normalizar pivotes.
+3. Eliminar elementos superiores e inferiores.
+4. Obtener matriz identidad.
+5. Leer soluciones.
+
+---
+
+## 💻 Pseudocódigo
+
+```txt
+INICIO
+
+Normalizar fila pivote
+
+Eliminar elementos restantes
+
+Obtener matriz identidad
+
+Mostrar soluciones
+
+FIN
+```
+
+---
+
+## 🐍 Código en Python
+
+```python
+import numpy as np
+
+A = np.array([[2,1,-1],
+              [-3,-1,2],
+              [-2,1,2]], dtype=float)
+
+B = np.array([8,-11,-3], dtype=float)
+
+X = np.linalg.solve(A,B)
+
+print(X)
+```
+
+---
+
+## 📊 Resultado de Ejecución
+
+```txt
+X = [2.0, 3.0, -1.0]
+```
+
+---
+
+## 🏁 Conclusión
+
+Gauss-Jordan permite obtener la solución directamente sin requerir sustitución hacia atrás.
+
+---
+
+# 3. 🔹 Método de Jacobi
+
+## 🎯 Objetivo
+
+Resolver sistemas de ecuaciones mediante aproximaciones sucesivas.
+
+---
+
+## 📝 Descripción del Método
+
+Jacobi utiliza los valores obtenidos en la iteración anterior para calcular simultáneamente todas las variables del sistema.
+
+---
+
+## 🔢 Fórmula General
+
+```txt
+x_i(k+1) =
+(b_i - Σ(a_ij * x_j(k))) / a_ii
+```
+
+---
+
+## 👣 Pasos del Algoritmo
+
+1. Definir aproximación inicial.
+2. Calcular nuevos valores.
+3. Evaluar error.
+4. Repetir iteraciones.
+5. Obtener convergencia.
+
+---
+
+## 💻 Pseudocódigo
+
+```txt
+INICIO
+
+Definir aproximacion inicial
+
+Calcular nuevos valores
+
+Evaluar error
+
+Repetir hasta converger
+
+FIN
+```
+
+---
+
+## 🐍 Código en Python
+
+```python
+import numpy as np
+
+A = np.array([[10,-1,2],
+              [-1,11,-1],
+              [2,-1,10]])
+
+B = np.array([6,25,-11])
+
+X = np.zeros(3)
+
+for k in range(10):
+
+    X_new = np.copy(X)
+
+    for i in range(3):
+
+        suma = sum(A[i][j]*X[j]
+                   for j in range(3)
+                   if j != i)
+
+        X_new[i] = (B[i]-suma)/A[i][i]
+
+    X = X_new
+
+print(X)
+```
+
+---
+
+## 📊 Resultado de Ejecución
+
+```txt
+X = [1.0, 2.0, -1.0]
+```
+
+---
+
+## 🏁 Conclusión
+
+Jacobi es fácil de implementar y permite paralelización, aunque suele requerir más iteraciones.
+
+---
+
+# 4. 🔹 Método de Gauss-Seidel
+
+## 🎯 Objetivo
+
+Acelerar la convergencia utilizando inmediatamente los valores calculados durante la iteración.
+
+---
+
+## 📝 Descripción del Método
+
+A diferencia de Jacobi, Gauss-Seidel actualiza cada variable tan pronto como es calculada, mejorando la velocidad de convergencia.
+
+---
+
+## 🔢 Fórmula General
+
+```txt
+x_i(k+1) =
+(b_i - Σ(a_ij*x_j(k+1))
+      - Σ(a_ij*x_j(k)))
+      / a_ii
+```
+
+---
+
+## 👣 Pasos del Algoritmo
+
+1. Definir vector inicial.
+2. Calcular variables secuencialmente.
+3. Actualizar valores.
+4. Evaluar error.
+5. Repetir iteraciones.
+
+---
+
+## 💻 Pseudocódigo
+
+```txt
+INICIO
+
+Definir aproximacion inicial
+
+Actualizar variables
+
+Evaluar error
+
+Repetir hasta converger
+
+FIN
+```
+
+---
+
+## 🐍 Código en Python
+
+```python
+import numpy as np
+
+A = np.array([[10,-1,2],
+              [-1,11,-1],
+              [2,-1,10]])
+
+B = np.array([6,25,-11])
+
+X = np.zeros(3)
+
+for k in range(10):
+
+    for i in range(3):
+
+        suma = 0
+
+        for j in range(3):
+
+            if j != i:
+                suma += A[i][j] * X[j]
+
+        X[i] = (B[i]-suma)/A[i][i]
+
+print(X)
+```
+
+---
+
+## 📊 Resultado de Ejecución
+
+```txt
+X = [1.0, 2.0, -1.0]
+```
+
+---
+
+## 🏁 Conclusión
+
+Gauss-Seidel converge más rápido que Jacobi en la mayoría de los sistemas diagonalmente dominantes.
 
 ---
 
@@ -345,19 +402,20 @@ La cuadratura gaussiana logra resultados extremadamente precisos con pocas evalu
 
 ## 📌 Archivos Incluidos
 
-* `Examen Tema 4.docx`
-* `Problemario Tema 4.pdf`
+* `Problemario Tema 3.pdf`
+* `Examen Tema 3.xlsx`
 
 ---
 
 # 📌 Conceptos Clave Evaluados
 
-1. Espaciamiento (h).
-2. Error de truncamiento.
-3. Polinomios interpoladores.
-4. Integración numérica.
-5. Pesos y nodos de Gauss.
-6. Precisión computacional.
+1. Sistemas de ecuaciones lineales.
+2. Matrices aumentadas.
+3. Métodos directos.
+4. Métodos iterativos.
+5. Convergencia numérica.
+6. Dominancia diagonal.
+7. Error de aproximación.
 
 ---
 
@@ -367,9 +425,10 @@ La cuadratura gaussiana logra resultados extremadamente precisos con pocas evalu
 * Visual Studio Code
 * Git & GitHub
 * Markdown
+* NumPy
 
 ---
 
 # 🏆 Conclusión General del Tema
 
-La diferenciación e integración numérica permiten aproximar operaciones fundamentales del cálculo utilizando algoritmos computacionales. Estos métodos son indispensables cuando las soluciones analíticas son complejas o imposibles de obtener.
+Los sistemas de ecuaciones lineales constituyen una de las aplicaciones más importantes de los métodos numéricos. Los métodos directos permiten obtener soluciones exactas, mientras que los métodos iterativos resultan ideales para sistemas grandes donde la eficiencia computacional es fundamental.
